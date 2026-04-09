@@ -3,615 +3,309 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avaliação — Economia</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&display=swap" rel="stylesheet">
+<title>Guia do Trabalho — Microeconomia</title>
 <style>
-  :root {
-    --bg: #f5f0e8;
-    --surface: #fffdf8;
-    --border: #d4c9b0;
-    --accent: #1a3a2a;
-    --text: #1c1c1c;
-    --muted: #6b6150;
-    --correct: #1a5c3a;
-    --correct-bg: #e8f5ee;
-    --wrong: #8b1a1a;
-    --wrong-bg: #fdeaea;
-    --neutral-bg: #f0ebe0;
-    --blue: #2a4a8c;
-    --blue-bg: #e8f0fb;
-    --orange: #7a4a10;
-    --orange-bg: #fef6e8;
-  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Source Serif 4', Georgia, serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 20px 80px; }
-  .page { max-width: 820px; margin: 0 auto; }
 
-  header { text-align: center; padding: 48px 0 40px; border-bottom: 2px solid var(--accent); margin-bottom: 48px; }
-  header h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--accent); }
-  header p { margin-top: 10px; color: var(--muted); font-style: italic; }
+  body {
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #fff;
+    color: #37352f;
+    font-size: 16px;
+    line-height: 1.7;
+  }
 
-  .question-block { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; padding: 32px 36px; margin-bottom: 28px; position: relative; }
-  .q-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
-  .q-number { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--border); font-weight: 700; line-height: 1; min-width: 30px; }
-  .q-type-badge { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-top: 4px; }
-  .badge-mc { background: var(--blue-bg); color: var(--blue); }
-  .badge-essay { background: var(--orange-bg); color: var(--orange); }
-  .q-text { font-size: 0.97rem; line-height: 1.65; flex: 1; }
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 5rem 2rem 8rem;
+  }
 
-  .affirmatives { background: var(--neutral-bg); border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; font-size: 0.91rem; line-height: 1.75; }
-  .affirmatives p { margin-bottom: 2px; }
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #37352f;
+  }
 
-  .math-block { font-family: 'Courier New', monospace; background: var(--neutral-bg); border-radius: 8px; padding: 12px 18px; margin: 12px 0 18px; font-size: 0.88rem; line-height: 1.8; border-left: 3px solid #c8542a; }
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 2.2rem;
+    margin-bottom: 0.5rem;
+    color: #37352f;
+  }
 
-  /* OPTIONS */
-  .options-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .option-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--border); background: white; font-size: 0.92rem; cursor: pointer; transition: all 0.2s; user-select: none; }
-  .option-item:hover:not(.locked) { border-color: var(--blue); background: #f0f4fc; }
-  .option-item.selected:not(.locked) { border-color: var(--blue); background: var(--blue-bg); color: var(--blue); font-weight: 600; }
-  .option-item.correct { border-color: var(--correct) !important; background: var(--correct-bg) !important; color: var(--correct) !important; font-weight: 600; }
-  .option-item.wrong { border-color: var(--wrong) !important; background: var(--wrong-bg) !important; color: var(--wrong) !important; font-weight: 600; }
-  .option-item.show-correct { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); }
-  .option-item.locked { cursor: default; }
+  p { margin-bottom: 0.4rem; }
 
-  .option-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid currentColor; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; transition: all 0.2s; }
+  ul, ol {
+    padding-left: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
 
-  /* ESSAY */
-  .essay-box { width: 100%; min-height: 120px; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'Source Serif 4', Georgia, serif; font-size: 0.93rem; line-height: 1.7; resize: vertical; background: white; color: var(--text); outline: none; transition: border-color 0.2s; }
-  .essay-box:focus { border-color: #b8a880; }
-  .essay-note { font-size: 0.78rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+  li { margin-bottom: 0.15rem; }
 
-  /* CONFIRM BTN */
-  .confirm-btn { margin-top: 18px; background: var(--accent); color: white; border: none; border-radius: 8px; padding: 10px 24px; font-family: 'Source Serif 4', Georgia, serif; font-size: 0.9rem; cursor: pointer; letter-spacing: 0.03em; transition: opacity 0.2s; }
-  .confirm-btn:hover { opacity: 0.85; }
-  .confirm-btn:disabled { opacity: 0.4; cursor: default; }
+  .callout {
+    background: #f1f1ef;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.6rem;
+  }
 
-  /* FEEDBACK */
-  .feedback { margin-top: 14px; font-size: 0.88rem; font-weight: 600; padding: 10px 16px; border-radius: 8px; display: none; }
-  .feedback.show { display: block; }
-  .feedback.ok { background: var(--correct-bg); color: var(--correct); }
-  .feedback.fail { background: var(--wrong-bg); color: var(--wrong); }
+  .callout-yellow { background: #fef9c3; }
+  .callout-red    { background: #fde8e8; }
+  .callout-blue   { background: #e8f0fe; }
 
-  /* SUBMIT */
-  .submit-section { text-align: center; margin-top: 20px; }
-  .submit-btn { background: var(--accent); color: white; border: none; border-radius: 10px; padding: 14px 40px; font-family: 'Playfair Display', serif; font-size: 1.1rem; cursor: pointer; transition: opacity 0.2s; }
-  .submit-btn:hover { opacity: 0.85; }
+  hr {
+    border: none;
+    border-top: 1px solid #e9e9e7;
+    margin: 1.5rem 0;
+  }
 
-  /* SCORE */
-  .score-panel { display: none; background: var(--surface); border: 2px solid var(--accent); border-radius: 16px; padding: 32px; text-align: center; margin-top: 40px; }
-  .score-panel.show { display: block; }
-  .score-panel h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--accent); }
-  .score-panel p { color: var(--muted); margin-top: 8px; font-style: italic; }
-  .score-big { font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--accent); display: block; margin: 16px 0 8px; }
+  code {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    background: #f1f1ef;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-size: 14px;
+  }
 
-  footer { text-align: center; margin-top: 60px; color: var(--muted); font-size: 0.82rem; font-style: italic; border-top: 1px solid var(--border); padding-top: 24px; }
+  details { margin-bottom: 0.2rem; }
+
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    user-select: none;
+  }
+
+  details summary::before {
+    content: '▶';
+    font-size: 10px;
+    color: #9b9a97;
+    transition: transform 0.15s;
+    display: inline-block;
+  }
+
+  details[open] summary::before { transform: rotate(90deg); }
+
+  details .inner { padding-left: 1.4rem; padding-top: 0.3rem; }
+
+  .check { color: #0f7b55; }
+  .cross  { color: #c0392b; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 0.75rem 0;
+  }
+
+  th {
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid #e9e9e7;
+    padding: 6px 10px;
+    color: #6b6b6b;
+  }
+
+  td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #f1f1ef;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <header>
-    <h1>Avaliação — Introdução à Economia</h1>
-    <p>Responda as questões abaixo. As de múltipla escolha serão corrigidas automaticamente.</p>
-  </header>
+  <h1>📊 Guia do Trabalho — Microeconomia</h1>
 
-  <!-- Q1 -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">01</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
+  <hr>
+
+  <h2>📌 1. O que é o trabalho</h2>
+  <ul>
+    <li>Relatório científico (pesquisa bibliográfica) em grupo</li>
+    <li>Tema: escolher 1 entre 5 opções de microeconomia</li>
+    <li>Objetivo: responder uma problematização (pergunta) usando teoria</li>
+  </ul>
+
+  <h2>Estrutura obrigatória</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Seção</th><th>Tamanho</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Capa (ABNT)</td><td>—</td></tr>
+      <tr><td>2</td><td>Introdução</td><td>1–2 páginas</td></tr>
+      <tr><td>3</td><td>Desenvolvimento</td><td>4–5 páginas</td></tr>
+      <tr><td>4</td><td>Conclusão</td><td>1 página</td></tr>
+      <tr><td>5</td><td>Referências</td><td>1 página</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Total: ~7 a 9 páginas</strong></p>
+
+  <hr>
+
+  <h2>🎯 2. O que realmente importa (avaliação)</h2>
+  <p>O professor vai olhar:</p>
+  <ul>
+    <li><span class="check">✔</span> Respondeu bem a pergunta?</li>
+    <li><span class="check">✔</span> Usou teoria (autores, citações)?</li>
+    <li><span class="check">✔</span> Seguiu ABNT (formatação)?</li>
+    <li><span class="check">✔</span> Tem lógica e coesão?</li>
+  </ul>
+  <div class="callout callout-yellow">
+    <span>⚠️</span>
+    <span>NÃO é só copiar teoria → tem que <strong>argumentar</strong></span>
+  </div>
+
+  <hr>
+
+  <h2>🧠 3. Temas disponíveis</h2>
+  <ul>
+    <li>Estruturas de mercado</li>
+    <li>Economia da informação</li>
+    <li>Economia ambiental</li>
+    <li>Oferta e demanda ← <strong>tema escolhido</strong></li>
+    <li>Elasticidade</li>
+  </ul>
+
+  <hr>
+
+  <h2>⚙️ 4. Divisão em tarefas (6 pessoas)</h2>
+
+  <details open>
+    <summary>👤 Pessoa 1 — Introdução</summary>
+    <div class="inner">
+      <ul>
+        <li>Tema</li>
+        <li>Problema</li>
+        <li>Objetivo</li>
+        <li>Justificativa</li>
+      </ul>
     </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Considere as afirmativas sobre a Curva de Possibilidades de Produção (CPP):</strong></p>
-    <div class="affirmatives">
-      <p>A. A CPP expressa a capacidade máxima de produção.</p>
-      <p>B. Produção potencial futura depende de investimento nos fatores de produção.</p>
-      <p>C. Sub-utilização de recursos não é expressa à esquerda da curva da oferta.</p>
-      <p>D. Pleno emprego de produção não é expresso à direita da CPP.</p>
+  </details>
+
+  <details open>
+    <summary>👤 Pessoa 2 — Teoria base</summary>
+    <div class="inner">
+      <ul>
+        <li>Conceitos principais (livros/artigos)</li>
+      </ul>
     </div>
-    <ul class="options-list" id="opts-q1" data-correct="IV">
-      <li class="option-item" data-val="I" onclick="selectOption(this)"><div class="option-dot">I</div> D e C estão corretas</li>
-      <li class="option-item" data-val="II" onclick="selectOption(this)"><div class="option-dot">II</div> B e A estão incorretas</li>
-      <li class="option-item" data-val="III" onclick="selectOption(this)"><div class="option-dot">III</div> B e C estão incorretas</li>
-      <li class="option-item" data-val="IV" onclick="selectOption(this)"><div class="option-dot">IV</div> A e D estão corretas</li>
+  </details>
+
+  <details open>
+    <summary>👤 Pessoa 3 — Explicação do problema</summary>
+    <div class="inner">
+      <ul>
+        <li>Começa a responder a pergunta</li>
+      </ul>
+    </div>
+  </details>
+
+  <details open>
+    <summary>👤 Pessoa 4 — Continuação + exemplos</summary>
+    <div class="inner">
+      <ul>
+        <li>Aplicação prática / mercado real</li>
+      </ul>
+    </div>
+  </details>
+
+  <details open>
+    <summary>👤 Pessoa 5 — Conclusão + revisão lógica</summary>
+    <div class="inner">
+      <ul>
+        <li>Amarra tudo</li>
+        <li>Responde claramente a pergunta</li>
+      </ul>
+    </div>
+  </details>
+
+  <details open>
+    <summary>👤 Pessoa 6 — Formatação + referências</summary>
+    <div class="inner">
+      <ul>
+        <li>ABNT (ESSENCIAL)</li>
+        <li>Ajustar citações</li>
+        <li>Montar capa</li>
+        <li>Revisão do trabalho</li>
+      </ul>
+    </div>
+  </details>
+
+  <hr>
+
+  <h2>📅 5. Plano em 4 semanas</h2>
+
+  <table>
+    <thead>
+      <tr><th>Semana</th><th>Foco</th><th>Tarefas</th><th>Entregável</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td>Definição + pesquisa</td>
+        <td>Escolher tema, definir pergunta, buscar fontes (Google Acadêmico)</td>
+        <td>Material bruto + fontes</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td>Produção</td>
+        <td>Cada pessoa escreve sua parte</td>
+        <td>Introdução pronta + desenvolvimento parcial</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td>Finalização</td>
+        <td>Juntar tudo, fazer conclusão, ajustar lógica</td>
+        <td>Trabalho completo (rascunho)</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td>Revisão final</td>
+        <td>ABNT, ajustar português, conferir citações</td>
+        <td>Versão final pronta pra enviar</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <h2>⚠️ 6. Erros que derrubam nota</h2>
+  <div class="callout callout-red">
+    <span>🚫</span>
+    <ul style="list-style:none; padding:0;">
+      <li><span class="cross">✗</span> Não responder a pergunta</li>
+      <li><span class="cross">✗</span> Não usar autores (sem citação)</li>
+      <li><span class="cross">✗</span> Referência errada</li>
+      <li><span class="cross">✗</span> Texto genérico/copiado</li>
+      <li><span class="cross">✗</span> ABNT ignorada</li>
     </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q1', this)">Confirmar</button>
-    <div class="feedback" id="fb-q1"></div>
   </div>
 
-  <!-- Q2 -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">02</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:14px"><strong>Em um mercado, a oferta e procura de um produto são dadas pelas equações abaixo. A quantidade transacionada de equilíbrio neste mercado será de:</strong></p>
-    <div class="math-block">DX = 48 + 10PX<br>OX = 300 − 8PX</div>
-    <ul class="options-list" id="opts-q2" data-correct="IV">
-      <li class="option-item" data-val="I" onclick="selectOption(this)"><div class="option-dot">I</div> 252 unidades</li>
-      <li class="option-item" data-val="II" onclick="selectOption(this)"><div class="option-dot">II</div> 14 unidades</li>
-      <li class="option-item" data-val="III" onclick="selectOption(this)"><div class="option-dot">III</div> 2 unidades</li>
-      <li class="option-item" data-val="IV" onclick="selectOption(this)"><div class="option-dot">IV</div> 188 unidades</li>
-      <li class="option-item" data-val="V" onclick="selectOption(this)"><div class="option-dot">V</div> 100 unidades</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q2', this)">Confirmar</button>
-    <div class="feedback" id="fb-q2"></div>
+  <hr>
+
+  <h2>💡 7. Dica de ouro — como ganhar nota alta</h2>
+  <p>Sempre escreva assim:</p>
+  <p><code>"Segundo autor X (ano)..."</code></p>
+  <p>E depois:</p>
+  <p><code>"Portanto, observa-se que..."</code></p>
+  <div class="callout callout-blue">
+    <span>✅</span>
+    <span>Isso mostra: <strong>pesquisa</strong> · <strong>interpretação</strong> · <strong>argumento</strong></span>
   </div>
 
-  <!-- Q3 dissertativa -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">03</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Relativo à assimetria da informação, explique a diferença entre Risco Moral e Seleção Adversa.</strong></p>
-    <textarea class="essay-box" placeholder="Digite sua resposta aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q4 dissertativa -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">04</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Defina a Lei Geral da Demanda e indique outras variáveis que afetam a demanda.</strong></p>
-    <textarea class="essay-box" placeholder="Digite sua resposta aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q5 dissertativa -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">05</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>A externalidade negativa é uma falha de mercado e o Ecodesenvolvimentismo uma teoria que tem como pilar a Sustentabilidade. Explique o que é externalidade e defina Sustentabilidade.</strong></p>
-    <textarea class="essay-box" placeholder="Digite sua resposta aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q6 dissertativa -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">06</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:14px"><strong>São dadas as seguintes funções de demanda e oferta. Sabendo que o preço do produto correlacionado é Py = $4,00 e a Renda dos consumidores é R = $190,00:</strong></p>
-    <div class="math-block">Dx = 400 − Px − 3Py + 0,5R<br>Ox = 120 + 7Px</div>
-    <p class="q-text" style="margin-bottom:12px">a) Determine (com memorial) o preço e a quantidade de equilíbrio do produto X.</p>
-    <p class="q-text" style="margin-bottom:12px">b) Se o preço da mercadoria X for alterado para $40,00 e $25,00, quais seriam as quantidades ofertadas e demandadas nessas condições (com memorial)?</p>
-    <textarea class="essay-box" style="min-height:160px" placeholder="Desenvolva o memorial de cálculo aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q6b dissertativa — Cálculo 2 -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">06b</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:14px"><strong>São dadas as seguintes funções de demanda e oferta. Sabendo que Py = $3,00 e a Renda dos consumidores é R = $250,00:</strong></p>
-    <div class="math-block">Dx = 600 − 2Px − 4Py + 0,4R<br>Ox = 80 + 5Px</div>
-    <p class="q-text" style="margin-bottom:12px">a) Determine (com memorial) o preço e a quantidade de equilíbrio do produto X.</p>
-    <p class="q-text" style="margin-bottom:12px">b) Se o preço da mercadoria X for alterado para $50,00 e $30,00, quais seriam as quantidades ofertadas e demandadas nessas condições (com memorial)?</p>
-    <textarea class="essay-box" style="min-height:160px" placeholder="Desenvolva o memorial de cálculo aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q6c dissertativa — Cálculo 3 -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">06c</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:14px"><strong>São dadas as seguintes funções de demanda e oferta. Sabendo que Py = $5,00 e a Renda dos consumidores é R = $300,00:</strong></p>
-    <div class="math-block">Dx = 750 − 3Px − 2Py + 0,6R<br>Ox = 150 + 6Px</div>
-    <p class="q-text" style="margin-bottom:12px">a) Determine (com memorial) o preço e a quantidade de equilíbrio do produto X.</p>
-    <p class="q-text" style="margin-bottom:12px">b) Se o preço da mercadoria X for alterado para $60,00 e $35,00, quais seriam as quantidades ofertadas e demandadas nessas condições (com memorial)?</p>
-    <textarea class="essay-box" style="min-height:160px" placeholder="Desenvolva o memorial de cálculo aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q6d dissertativa — Cálculo 4 -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">06d</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:14px"><strong>São dadas as seguintes funções de demanda e oferta. Sabendo que Py = $6,00 e a Renda dos consumidores é R = $400,00:</strong></p>
-    <div class="math-block">Dx = 900 − 4Px − 5Py + 0,3R<br>Ox = 200 + 9Px</div>
-    <p class="q-text" style="margin-bottom:12px">a) Determine (com memorial) o preço e a quantidade de equilíbrio do produto X.</p>
-    <p class="q-text" style="margin-bottom:12px">b) Se o preço da mercadoria X for alterado para $45,00 e $20,00, quais seriam as quantidades ofertadas e demandadas nessas condições (com memorial)?</p>
-    <textarea class="essay-box" style="min-height:160px" placeholder="Desenvolva o memorial de cálculo aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q6e dissertativa — Cálculo 5 -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">06e</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:14px"><strong>São dadas as seguintes funções de demanda e oferta. Sabendo que Py = $2,00 e a Renda dos consumidores é R = $500,00:</strong></p>
-    <div class="math-block">Dx = 1000 − 5Px − 3Py + 0,2R<br>Ox = 100 + 8Px</div>
-    <p class="q-text" style="margin-bottom:12px">a) Determine (com memorial) o preço e a quantidade de equilíbrio do produto X.</p>
-    <p class="q-text" style="margin-bottom:12px">b) Se o preço da mercadoria X for alterado para $70,00 e $40,00, quais seriam as quantidades ofertadas e demandadas nessas condições (com memorial)?</p>
-    <textarea class="essay-box" style="min-height:160px" placeholder="Desenvolva o memorial de cálculo aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q7 -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">07</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Considere as afirmativas sobre bens e demanda:</strong></p>
-    <div class="affirmatives">
-      <p>A. Diminuição de Renda dos consumidores aumenta a demanda por bens inferiores.</p>
-      <p>B. Em um carro flex, gasolina e etanol podem ser bens substitutos e também complementares.</p>
-      <p>C. Aumento de renda diminui procura por bens saciados e aumenta procura de bens superiores.</p>
-      <p>D. Hábitos e preferências dos consumidores podem influenciar demanda, através de mecanismos de publicidade e propaganda.</p>
-    </div>
-    <ul class="options-list" id="opts-q7" data-correct="I">
-      <li class="option-item" data-val="I" onclick="selectOption(this)"><div class="option-dot">I</div> D e C estão incorretas</li>
-      <li class="option-item" data-val="II" onclick="selectOption(this)"><div class="option-dot">II</div> B e A estão corretas</li>
-      <li class="option-item" data-val="III" onclick="selectOption(this)"><div class="option-dot">III</div> A e D estão corretas</li>
-      <li class="option-item" data-val="IV" onclick="selectOption(this)"><div class="option-dot">IV</div> B e C estão corretas</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q7', this)">Confirmar</button>
-    <div class="feedback" id="fb-q7"></div>
-  </div>
-
-  <!-- Q8 dissertativa -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">08</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Defina economia com o uso obrigatório das seguintes palavras-chave: <em>agentes econômicos, equilíbrio, famílias</em>.</strong></p>
-    <textarea class="essay-box" placeholder="Digite sua resposta aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q9 -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">09</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Considere as afirmativas:</strong></p>
-    <div class="affirmatives">
-      <p>A. Demanda é o mesmo que procura.</p>
-      <p>B. O termo Ceteris Paribus não é utilizado quando se estuda múltiplas variáveis.</p>
-      <p>C. Segundo a Lei Geral da Oferta, preço de um bem ou serviço sobe, oferta diminui.</p>
-      <p>D. Aumento de custo motiva aumento de oferta de bens e serviços.</p>
-    </div>
-    <ul class="options-list" id="opts-q9" data-correct="III">
-      <li class="option-item" data-val="I" onclick="selectOption(this)"><div class="option-dot">I</div> B e C estão incorretas</li>
-      <li class="option-item" data-val="II" onclick="selectOption(this)"><div class="option-dot">II</div> B e A estão corretas</li>
-      <li class="option-item" data-val="III" onclick="selectOption(this)"><div class="option-dot">III</div> A e D estão incorretas</li>
-      <li class="option-item" data-val="IV" onclick="selectOption(this)"><div class="option-dot">IV</div> D e C estão corretas</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q9', this)">Confirmar</button>
-    <div class="feedback" id="fb-q9"></div>
-  </div>
-
-  <!-- Q10 dissertativa -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">10</div>
-      <span class="q-type-badge badge-essay">Dissertativa</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Indique quais são os Agentes Econômicos da Economia e suas funções.</strong></p>
-    <textarea class="essay-box" placeholder="Digite sua resposta aqui..."></textarea>
-    <p class="essay-note">⚠ Esta questão é dissertativa e não será corrigida automaticamente.</p>
-  </div>
-
-  <!-- Q11 — Definição de Economia -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">11</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>A economia pode ser definida como:</strong></p>
-    <ul class="options-list" id="opts-q11" data-correct="B">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Uma ciência exata que estuda apenas números financeiros</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Uma ciência social que analisa necessidades humanas e escassez de recursos buscando equilíbrio</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Um ramo da matemática aplicado à contabilidade</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Um estudo exclusivo das empresas</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q11', this)">Confirmar</button>
-    <div class="feedback" id="fb-q11"></div>
-  </div>
-
-  <!-- Q12 — Agentes Econômicos -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">12</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Na microeconomia, os principais agentes econômicos são:</strong></p>
-    <ul class="options-list" id="opts-q12" data-correct="B">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Governo e setor externo</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Empresas e famílias</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Bancos e bolsa de valores</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Apenas consumidores</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q12', this)">Confirmar</button>
-    <div class="feedback" id="fb-q12"></div>
-  </div>
-
-  <!-- Q13 — Função das Famílias -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">13</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>As famílias, na economia, têm como principal função:</strong></p>
-    <ul class="options-list" id="opts-q13" data-correct="C">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Produzir bens</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Ofertar serviços financeiros</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Demandar bens e serviços</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Controlar o mercado</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q13', this)">Confirmar</button>
-    <div class="feedback" id="fb-q13"></div>
-  </div>
-
-  <!-- Q14 — Lei Geral da Demanda -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">14</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>De acordo com a Lei da Demanda:</strong></p>
-    <ul class="options-list" id="opts-q14" data-correct="C">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Quando o preço sobe, a demanda aumenta</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Quando o preço cai, a demanda diminui</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Quando o preço sobe, a demanda diminui</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Preço não influencia a demanda</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q14', this)">Confirmar</button>
-    <div class="feedback" id="fb-q14"></div>
-  </div>
-
-  <!-- Q15 — Ceteris Paribus -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">15</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Ceteris Paribus significa:</strong></p>
-    <ul class="options-list" id="opts-q15" data-correct="B">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Variáveis mudando simultaneamente</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Tudo constante, exceto uma variável</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Apenas preço varia</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Apenas renda varia</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q15', this)">Confirmar</button>
-    <div class="feedback" id="fb-q15"></div>
-  </div>
-
-  <!-- Q16 — Variáveis que afetam demanda -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">16</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Qual das alternativas NÃO é uma variável que afeta a demanda?</strong></p>
-    <ul class="options-list" id="opts-q16" data-correct="D">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Renda dos consumidores</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Gostos e preferências</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Preço de bens relacionados</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Custo de produção</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q16', this)">Confirmar</button>
-    <div class="feedback" id="fb-q16"></div>
-  </div>
-
-  <!-- Q17 — Bens Substitutos -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">17</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Dois bens são substitutos quando:</strong></p>
-    <ul class="options-list" id="opts-q17" data-correct="B">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> São consumidos juntos</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Um substitui o outro</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Não têm relação</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> São produzidos pela mesma empresa</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q17', this)">Confirmar</button>
-    <div class="feedback" id="fb-q17"></div>
-  </div>
-
-  <!-- Q18 — Externalidade Negativa -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">18</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Externalidade negativa é:</strong></p>
-    <ul class="options-list" id="opts-q18" data-correct="B">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Benefício para terceiros</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Custo que afeta terceiros, como poluição</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Imposto do governo</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Aumento de lucro das empresas</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q18', this)">Confirmar</button>
-    <div class="feedback" id="fb-q18"></div>
-  </div>
-
-  <!-- Q19 — Sustentabilidade -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">19</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Sustentabilidade é:</strong></p>
-    <ul class="options-list" id="opts-q19" data-correct="B">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Crescimento econômico apenas</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Gestão equilibrada entre ambiental, social e econômico</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Foco apenas no meio ambiente</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Redução de custos</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q19', this)">Confirmar</button>
-    <div class="feedback" id="fb-q19"></div>
-  </div>
-
-  <!-- Q20 — Seleção Adversa -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">20</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>A seleção adversa ocorre:</strong></p>
-    <ul class="options-list" id="opts-q20" data-correct="B">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Após o contrato</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Antes da transação</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Durante a produção</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Após o consumo</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q20', this)">Confirmar</button>
-    <div class="feedback" id="fb-q20"></div>
-  </div>
-
-  <!-- Q21 — Risco Moral -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">21</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>O risco moral ocorre:</strong></p>
-    <ul class="options-list" id="opts-q21" data-correct="B">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Antes do contrato</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Após a negociação</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Antes da produção</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> No governo</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q21', this)">Confirmar</button>
-    <div class="feedback" id="fb-q21"></div>
-  </div>
-
-  <!-- Q22 — Subutilização de Recursos -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">22</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>Quando há subutilização de recursos:</strong></p>
-    <ul class="options-list" id="opts-q22" data-correct="A">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> A economia está abaixo da curva (dentro da CPP)</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> A economia está no máximo produtivo</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Está acima da CPP</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Não há produção</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q22', this)">Confirmar</button>
-    <div class="feedback" id="fb-q22"></div>
-  </div>
-
-  <!-- Q23 — Equilíbrio de Mercado -->
-  <div class="question-block">
-    <div class="q-header">
-      <div class="q-number">23</div>
-      <span class="q-type-badge badge-mc">Múltipla Escolha</span>
-    </div>
-    <p class="q-text" style="margin-bottom:16px"><strong>O equilíbrio de mercado ocorre quando:</strong></p>
-    <ul class="options-list" id="opts-q23" data-correct="C">
-      <li class="option-item" data-val="A" onclick="selectOption(this)"><div class="option-dot">A</div> Oferta &gt; demanda</li>
-      <li class="option-item" data-val="B" onclick="selectOption(this)"><div class="option-dot">B</div> Demanda &gt; oferta</li>
-      <li class="option-item" data-val="C" onclick="selectOption(this)"><div class="option-dot">C</div> Oferta = demanda</li>
-      <li class="option-item" data-val="D" onclick="selectOption(this)"><div class="option-dot">D</div> Preço é zero</li>
-    </ul>
-    <button class="confirm-btn" onclick="checkAnswer('q23', this)">Confirmar</button>
-    <div class="feedback" id="fb-q23"></div>
-  </div>
-
-  <div class="score-panel" id="scorePanel">
-    <h2>Resultado das Múltiplas Escolhas</h2>
-    <span class="score-big" id="scoreBig"></span>
-    <p id="scoreMsg"></p>
-  </div>
-
-  <footer>Avaliação interativa — Economia • Apenas questões de múltipla escolha são corrigidas automaticamente</footer>
 </div>
-
-<script>
-  const answers = {};
-  const confirmed = {};
-
-  function selectOption(el) {
-    const list = el.closest('.options-list');
-    if (list.classList.contains('locked')) return;
-    list.querySelectorAll('.option-item').forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
-    answers[list.id] = el.getAttribute('data-val');
-  }
-
-  function checkAnswer(qid, btn) {
-    const listId = 'opts-' + qid;
-    const list = document.getElementById(listId);
-    const fb = document.getElementById('fb-' + qid);
-    const selected = answers[listId];
-
-    if (!selected) {
-      fb.textContent = 'Selecione uma opção antes de confirmar.';
-      fb.className = 'feedback show fail';
-      return;
-    }
-
-    const correct = list.getAttribute('data-correct');
-    list.classList.add('locked');
-    btn.disabled = true;
-
-    list.querySelectorAll('.option-item').forEach(item => {
-      const val = item.getAttribute('data-val');
-      item.classList.add('locked');
-      item.onclick = null;
-      if (val === selected && val === correct) {
-        item.classList.remove('selected');
-        item.classList.add('correct');
-        item.querySelector('.option-dot').textContent = '✓';
-      } else if (val === selected && val !== correct) {
-        item.classList.remove('selected');
-        item.classList.add('wrong');
-        item.querySelector('.option-dot').textContent = '✗';
-      } else if (val === correct) {
-        item.classList.add('show-correct');
-        item.querySelector('.option-dot').textContent = '✓';
-      }
-    });
-
-    confirmed[qid] = selected === correct;
-
-    if (selected === correct) {
-      fb.textContent = '✓ Resposta correta!';
-      fb.className = 'feedback show ok';
-    } else {
-      fb.textContent = '✗ Resposta incorreta. A alternativa correta está destacada em verde.';
-      fb.className = 'feedback show fail';
-    }
-
-    // Update score panel if all MC answered
-    updateScore();
-  }
-
-  function updateScore() {
-    const mcQuestions = ['q1', 'q2', 'q7', 'q9', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20', 'q21', 'q22', 'q23'];
-    const done = mcQuestions.filter(q => confirmed[q] !== undefined).length;
-    if (done === mcQuestions.length) {
-      const correct = mcQuestions.filter(q => confirmed[q]).length;
-      const panel = document.getElementById('scorePanel');
-      document.getElementById('scoreBig').textContent = correct + ' / ' + mcQuestions.length;
-      document.getElementById('scoreMsg').textContent = correct === mcQuestions.length
-        ? 'Parabéns! Você acertou todas as questões de múltipla escolha!'
-        : 'Você respondeu todas as questões de múltipla escolha.';
-      panel.classList.add('show');
-      panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
-</script>
 </body>
 </html>
