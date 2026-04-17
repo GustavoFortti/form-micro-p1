@@ -3,309 +3,611 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guia do Trabalho — Microeconomia</title>
+<title>Pedroso Consultoria em RH</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #fff;
-    color: #37352f;
+    background: #f8f9fa;
+    color: #2d2d2d;
     font-size: 16px;
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
-  .page {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 5rem 2rem 8rem;
+  /* HEADER */
+  header {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 3.5rem 2rem 3rem;
+    text-align: center;
   }
 
-  h1 {
-    font-size: 2.2rem;
+  header h1 {
+    font-size: 2.4rem;
     font-weight: 700;
-    margin-bottom: 2rem;
-    color: #37352f;
-  }
-
-  h2 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top: 2.2rem;
+    letter-spacing: -0.5px;
     margin-bottom: 0.5rem;
-    color: #37352f;
   }
 
-  p { margin-bottom: 0.4rem; }
+  header p {
+    font-size: 1.05rem;
+    color: #a8c4e0;
+    font-weight: 400;
+  }
+
+  /* NAV */
+  nav {
+    background: #14304f;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+    border-bottom: 2px solid #0f2640;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  nav a {
+    color: #a8c4e0;
+    text-decoration: none;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  nav a:hover { background: #1a3a5c; color: #fff; }
+
+  /* MAIN LAYOUT */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  /* SECTION */
+  section {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 2rem 2.2rem;
+    margin-bottom: 2rem;
+  }
+
+  section h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  section h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #2d4a6a;
+    margin-top: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  section h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #3d6080;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.82rem;
+  }
+
+  p { margin-bottom: 0.6rem; }
 
   ul, ol {
     padding-left: 1.4rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
 
-  li { margin-bottom: 0.15rem; }
-
-  .callout {
-    background: #f1f1ef;
-    border-radius: 4px;
-    padding: 0.75rem 1rem;
-    margin: 1rem 0;
-    display: flex;
-    gap: 0.6rem;
-  }
-
-  .callout-yellow { background: #fef9c3; }
-  .callout-red    { background: #fde8e8; }
-  .callout-blue   { background: #e8f0fe; }
+  li { margin-bottom: 0.2rem; }
 
   hr {
     border: none;
-    border-top: 1px solid #e9e9e7;
-    margin: 1.5rem 0;
+    border-top: 1px solid #e2e8f0;
+    margin: 1.4rem 0;
   }
 
-  code {
-    font-family: "SFMono-Regular", Consolas, monospace;
-    background: #f1f1ef;
-    border-radius: 3px;
-    padding: 2px 6px;
-    font-size: 14px;
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
   }
 
-  details { margin-bottom: 0.2rem; }
+  .card {
+    background: #f0f5fb;
+    border: 1px solid #d0dff0;
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+  }
 
-  details summary {
-    cursor: pointer;
-    font-weight: 600;
-    list-style: none;
+  .card strong {
+    display: block;
+    color: #1a3a5c;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 0.4rem;
+  }
+
+  .card p { font-size: 0.92rem; margin: 0; }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: 6px;
+    padding: 0.85rem 1.1rem;
+    margin: 1rem 0;
     display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    font-size: 0.95rem;
+  }
+
+  .callout-blue   { background: #e8f0fe; border-left: 4px solid #3b82f6; }
+  .callout-green  { background: #e6f4ea; border-left: 4px solid #34a853; }
+  .callout-yellow { background: #fef9c3; border-left: 4px solid #f59e0b; }
+
+  .callout-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  /* ORGANOGRAM */
+  .org {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 2px 0;
-    user-select: none;
+    gap: 0;
+    margin: 1.2rem 0;
   }
 
-  details summary::before {
-    content: '▶';
-    font-size: 10px;
-    color: #9b9a97;
-    transition: transform 0.15s;
-    display: inline-block;
+  .org-node {
+    background: #1a3a5c;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.5rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-align: center;
+    min-width: 180px;
   }
 
-  details[open] summary::before { transform: rotate(90deg); }
+  .org-connector {
+    width: 2px;
+    height: 20px;
+    background: #a8c4e0;
+  }
 
-  details .inner { padding-left: 1.4rem; padding-top: 0.3rem; }
+  .org-row {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-  .check { color: #0f7b55; }
-  .cross  { color: #c0392b; }
+  .org-branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
 
+  .org-node.secondary {
+    background: #2d6a9f;
+    min-width: 150px;
+  }
+
+  /* TABLE */
   table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
-    margin: 0.75rem 0;
+    font-size: 0.93rem;
+    margin: 0.8rem 0;
   }
 
   th {
     text-align: left;
-    font-weight: 600;
-    border-bottom: 1px solid #e9e9e7;
-    padding: 6px 10px;
-    color: #6b6b6b;
+    background: #f0f5fb;
+    color: #1a3a5c;
+    font-weight: 700;
+    padding: 8px 12px;
+    border: 1px solid #d0dff0;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
   }
 
   td {
-    padding: 6px 10px;
-    border-bottom: 1px solid #f1f1ef;
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
     vertical-align: top;
   }
 
-  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #f8fafd; }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 2px 2px 2px 0;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.85rem;
+    color: #888;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.7rem; }
+    section { padding: 1.4rem 1.2rem; }
+    nav a { padding: 0.6rem 0.8rem; font-size: 0.82rem; }
+  }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <h1>📊 Guia do Trabalho — Microeconomia</h1>
+<header>
+  <h1>Pedroso Consultoria em RH</h1>
+  <p>Gestão de Pessoas de Alta Qualidade com Foco em Resultados</p>
+</header>
 
-  <hr>
+<nav>
+  <a href="#introducao">Introdução</a>
+  <a href="#taylor-fayol">Taylor &amp; Fayol</a>
+  <a href="#estrutura">Estrutura</a>
+  <a href="#areas">Áreas</a>
+  <a href="#internacional">Internacional</a>
+  <a href="#microeconomia">Microeconomia</a>
+  <a href="#contabilidade">Contabilidade</a>
+</nav>
 
-  <h2>📌 1. O que é o trabalho</h2>
-  <ul>
-    <li>Relatório científico (pesquisa bibliográfica) em grupo</li>
-    <li>Tema: escolher 1 entre 5 opções de microeconomia</li>
-    <li>Objetivo: responder uma problematização (pergunta) usando teoria</li>
-  </ul>
+<main>
 
-  <h2>Estrutura obrigatória</h2>
-  <table>
-    <thead>
-      <tr><th>#</th><th>Seção</th><th>Tamanho</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>1</td><td>Capa (ABNT)</td><td>—</td></tr>
-      <tr><td>2</td><td>Introdução</td><td>1–2 páginas</td></tr>
-      <tr><td>3</td><td>Desenvolvimento</td><td>4–5 páginas</td></tr>
-      <tr><td>4</td><td>Conclusão</td><td>1 página</td></tr>
-      <tr><td>5</td><td>Referências</td><td>1 página</td></tr>
-    </tbody>
-  </table>
-  <p><strong>Total: ~7 a 9 páginas</strong></p>
-
-  <hr>
-
-  <h2>🎯 2. O que realmente importa (avaliação)</h2>
-  <p>O professor vai olhar:</p>
-  <ul>
-    <li><span class="check">✔</span> Respondeu bem a pergunta?</li>
-    <li><span class="check">✔</span> Usou teoria (autores, citações)?</li>
-    <li><span class="check">✔</span> Seguiu ABNT (formatação)?</li>
-    <li><span class="check">✔</span> Tem lógica e coesão?</li>
-  </ul>
-  <div class="callout callout-yellow">
-    <span>⚠️</span>
-    <span>NÃO é só copiar teoria → tem que <strong>argumentar</strong></span>
-  </div>
-
-  <hr>
-
-  <h2>🧠 3. Temas disponíveis</h2>
-  <ul>
-    <li>Estruturas de mercado</li>
-    <li>Economia da informação</li>
-    <li>Economia ambiental</li>
-    <li>Oferta e demanda ← <strong>tema escolhido</strong></li>
-    <li>Elasticidade</li>
-  </ul>
-
-  <hr>
-
-  <h2>⚙️ 4. Divisão em tarefas (6 pessoas)</h2>
-
-  <details open>
-    <summary>👤 Pessoa 1 — Introdução</summary>
-    <div class="inner">
-      <ul>
-        <li>Tema</li>
-        <li>Problema</li>
-        <li>Objetivo</li>
-        <li>Justificativa</li>
-      </ul>
+  <!-- 1. INTRODUÇÃO -->
+  <section id="introducao">
+    <h2>1. Introdução</h2>
+    <p>
+      O presente trabalho tem como objetivo analisar a aplicação dos conceitos administrativos na empresa
+      <strong>Pedroso Consultoria em Gestão de Pessoas</strong>, com foco na identificação de melhorias
+      e estratégias para o crescimento organizacional.
+    </p>
+    <p>
+      A problemática central está relacionada à forma como a organização estrutural, os processos internos
+      e a definição de critérios estratégicos impactam diretamente no desempenho e na expansão da empresa.
+      Busca-se compreender como a gestão eficiente pode contribuir para resultados sustentáveis.
+    </p>
+    <div class="callout callout-blue">
+      <span class="callout-icon">ℹ️</span>
+      <span>A empresa atua no segmento de <strong>consultoria em recursos humanos</strong>, com foco em
+      recrutamento, seleção, treinamento e desenvolvimento de pessoas — sendo o capital humano seu principal ativo.</span>
     </div>
-  </details>
+  </section>
 
-  <details open>
-    <summary>👤 Pessoa 2 — Teoria base</summary>
-    <div class="inner">
-      <ul>
-        <li>Conceitos principais (livros/artigos)</li>
-      </ul>
-    </div>
-  </details>
+  <!-- 2. TAYLOR E FAYOL -->
+  <section id="taylor-fayol">
+    <h2>2. Abordagem de Taylor e Fayol Aplicada à Pedroso</h2>
 
-  <details open>
-    <summary>👤 Pessoa 3 — Explicação do problema</summary>
-    <div class="inner">
-      <ul>
-        <li>Começa a responder a pergunta</li>
-      </ul>
-    </div>
-  </details>
-
-  <details open>
-    <summary>👤 Pessoa 4 — Continuação + exemplos</summary>
-    <div class="inner">
-      <ul>
-        <li>Aplicação prática / mercado real</li>
-      </ul>
-    </div>
-  </details>
-
-  <details open>
-    <summary>👤 Pessoa 5 — Conclusão + revisão lógica</summary>
-    <div class="inner">
-      <ul>
-        <li>Amarra tudo</li>
-        <li>Responde claramente a pergunta</li>
-      </ul>
-    </div>
-  </details>
-
-  <details open>
-    <summary>👤 Pessoa 6 — Formatação + referências</summary>
-    <div class="inner">
-      <ul>
-        <li>ABNT (ESSENCIAL)</li>
-        <li>Ajustar citações</li>
-        <li>Montar capa</li>
-        <li>Revisão do trabalho</li>
-      </ul>
-    </div>
-  </details>
-
-  <hr>
-
-  <h2>📅 5. Plano em 4 semanas</h2>
-
-  <table>
-    <thead>
-      <tr><th>Semana</th><th>Foco</th><th>Tarefas</th><th>Entregável</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>1</strong></td>
-        <td>Definição + pesquisa</td>
-        <td>Escolher tema, definir pergunta, buscar fontes (Google Acadêmico)</td>
-        <td>Material bruto + fontes</td>
-      </tr>
-      <tr>
-        <td><strong>2</strong></td>
-        <td>Produção</td>
-        <td>Cada pessoa escreve sua parte</td>
-        <td>Introdução pronta + desenvolvimento parcial</td>
-      </tr>
-      <tr>
-        <td><strong>3</strong></td>
-        <td>Finalização</td>
-        <td>Juntar tudo, fazer conclusão, ajustar lógica</td>
-        <td>Trabalho completo (rascunho)</td>
-      </tr>
-      <tr>
-        <td><strong>4</strong></td>
-        <td>Revisão final</td>
-        <td>ABNT, ajustar português, conferir citações</td>
-        <td>Versão final pronta pra enviar</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <hr>
-
-  <h2>⚠️ 6. Erros que derrubam nota</h2>
-  <div class="callout callout-red">
-    <span>🚫</span>
-    <ul style="list-style:none; padding:0;">
-      <li><span class="cross">✗</span> Não responder a pergunta</li>
-      <li><span class="cross">✗</span> Não usar autores (sem citação)</li>
-      <li><span class="cross">✗</span> Referência errada</li>
-      <li><span class="cross">✗</span> Texto genérico/copiado</li>
-      <li><span class="cross">✗</span> ABNT ignorada</li>
+    <h3>2.1 Características de Taylor</h3>
+    <p>
+      A teoria de Taylor, voltada para a <strong>eficiência produtiva</strong>, pode ser aplicada na Pedroso
+      por meio da padronização de processos de recrutamento e seleção:
+    </p>
+    <ul>
+      <li>Definição de etapas claras (triagem, entrevistas, testes)</li>
+      <li>Padronização de avaliações de candidatos</li>
+      <li>Controle de tempo em processos seletivos</li>
     </ul>
-  </div>
+    <p>Isso contribui para maior produtividade e qualidade na entrega dos serviços.</p>
 
-  <hr>
+    <hr>
 
-  <h2>💡 7. Dica de ouro — como ganhar nota alta</h2>
-  <p>Sempre escreva assim:</p>
-  <p><code>"Segundo autor X (ano)..."</code></p>
-  <p>E depois:</p>
-  <p><code>"Portanto, observa-se que..."</code></p>
-  <div class="callout callout-blue">
-    <span>✅</span>
-    <span>Isso mostra: <strong>pesquisa</strong> · <strong>interpretação</strong> · <strong>argumento</strong></span>
-  </div>
+    <h3>2.2 Características de Fayol</h3>
+    <p>
+      A teoria de Fayol é altamente aplicável à Pedroso, pois a empresa depende de uma
+      <strong>gestão estruturada</strong>. As funções administrativas aparecem claramente:
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <strong>Planejamento</strong>
+        <p>Definição de projetos de RH e estratégias para clientes</p>
+      </div>
+      <div class="card">
+        <strong>Organização</strong>
+        <p>Estruturação das demandas de clientes e processos internos</p>
+      </div>
+      <div class="card">
+        <strong>Direção</strong>
+        <p>Liderança das equipes e consultores</p>
+      </div>
+      <div class="card">
+        <strong>Controle</strong>
+        <p>Acompanhamento de resultados e desempenho</p>
+      </div>
+    </div>
 
-</div>
+    <hr>
+
+    <h3>2.3 Conclusão</h3>
+    <div class="callout callout-green">
+      <span class="callout-icon">✅</span>
+      <span>
+        Embora Taylor contribua para a padronização dos processos, a abordagem de <strong>Fayol é mais
+        adequada</strong>, pois a empresa atua com serviços estratégicos e personalizados, exigindo maior
+        foco na gestão como um todo.
+      </span>
+    </div>
+  </section>
+
+  <!-- 3. ESTRUTURA ORGANIZACIONAL -->
+  <section id="estrutura">
+    <h2>3. Estrutura Organizacional</h2>
+
+    <h3>3.1 Organograma</h3>
+    <p>A estrutura organizacional é enxuta, permitindo flexibilidade e adaptação às demandas dos clientes.</p>
+
+    <div class="org">
+      <div class="org-node">Direção</div>
+      <div class="org-connector"></div>
+      <div class="org-row">
+        <div class="org-branch">
+          <div class="org-node secondary">Consultores de RH</div>
+        </div>
+        <div class="org-branch">
+          <div class="org-node secondary">Área Administrativa / Comercial</div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>3.2 Missão, Visão e Valores</h3>
+    <div class="card-grid">
+      <div class="card">
+        <strong>Missão</strong>
+        <p>Promover gestão de pessoas de alta qualidade com foco em resultados</p>
+      </div>
+      <div class="card">
+        <strong>Visão</strong>
+        <p>Ser referência em gestão de pessoas</p>
+      </div>
+      <div class="card">
+        <strong>Valores</strong>
+        <p>
+          <span class="tag">Ética</span>
+          <span class="tag">Responsabilidade</span>
+          <span class="tag">Confiança</span>
+          <span class="tag">Foco no cliente</span>
+        </p>
+      </div>
+    </div>
+
+    <hr>
+
+    <h3>3.3 Funções Gerenciais</h3>
+    <table>
+      <thead>
+        <tr><th>Função</th><th>Aplicação na Pedroso</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Planejar</strong></td><td>Definição de projetos de RH e estratégias para clientes</td></tr>
+        <tr><td><strong>Organizar</strong></td><td>Estruturação dos processos seletivos e treinamentos</td></tr>
+        <tr><td><strong>Dirigir</strong></td><td>Liderança dos consultores e atendimento aos clientes</td></tr>
+        <tr><td><strong>Controlar</strong></td><td>Acompanhamento de resultados e indicadores</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h3>3.4 Sistema de Informação e Processo Decisório</h3>
+    <p>
+      A empresa utiliza informações estratégicas dos clientes (perfil de cargos, desempenho, cultura
+      organizacional) para tomada de decisão. O processo decisório é baseado em:
+    </p>
+    <ul>
+      <li>Análise de dados de candidatos</li>
+      <li>Feedback de clientes</li>
+      <li>Indicadores de desempenho</li>
+    </ul>
+  </section>
+
+  <!-- 4. ÁREAS DA EMPRESA -->
+  <section id="areas">
+    <h2>4. Áreas da Empresa</h2>
+    <p>A Pedroso é organizada em quatro grandes áreas funcionais:</p>
+
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+      <div class="card">
+        <strong>Recursos Humanos</strong>
+        <p>Core da empresa. Atua em recrutamento, seleção e desenvolvimento de pessoas.</p>
+      </div>
+      <div class="card">
+        <strong>Marketing</strong>
+        <p>Redes sociais, networking e relacionamento com empresas clientes.</p>
+      </div>
+      <div class="card">
+        <strong>Finanças</strong>
+        <p>Controle de receitas por projetos e custos operacionais.</p>
+      </div>
+      <div class="card">
+        <strong>Produção (Serviço)</strong>
+        <p>Entrega de soluções em RH: processos seletivos, treinamentos e consultorias.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. INTERNACIONAL -->
+  <section id="internacional">
+    <h2>5. Ambiente de Negócios Internacionais</h2>
+    <p>
+      A atuação da Pedroso pode ser inserida no contexto global de gestão de pessoas, onde empresas buscam
+      cada vez mais profissionais qualificados e alinhados à cultura organizacional.
+    </p>
+    <p>
+      Com a globalização, o mercado de trabalho tornou-se mais competitivo e integrado, permitindo:
+    </p>
+    <ul>
+      <li>Recrutamento internacional</li>
+      <li>Trabalho remoto e equipes globais</li>
+      <li>Troca de conhecimento entre países</li>
+    </ul>
+
+    <h3>Oportunidades de Expansão</h3>
+    <div class="card-grid">
+      <div class="card">
+        <strong>Multinacionais</strong>
+        <p>Seleção de profissionais para empresas de atuação global</p>
+      </div>
+      <div class="card">
+        <strong>Padrões Internacionais</strong>
+        <p>Treinamentos alinhados a boas práticas globais de RH</p>
+      </div>
+      <div class="card">
+        <strong>Gestão Intercultural</strong>
+        <p>Consultoria em diversidade, equipes multiculturais e integração global</p>
+      </div>
+    </div>
+
+    <div class="callout callout-yellow">
+      <span class="callout-icon">🌐</span>
+      <span>O ambiente internacional representa uma <strong>oportunidade de crescimento e expansão</strong> para a Pedroso.</span>
+    </div>
+  </section>
+
+  <!-- 6. MICROECONOMIA -->
+  <section id="microeconomia">
+    <h2>6. Microeconomia</h2>
+
+    <h3>6.1 Comportamento do Consumidor</h3>
+    <p>Os clientes (empresas) buscam:</p>
+    <ul>
+      <li>Redução de turnover</li>
+      <li>Contratação eficiente</li>
+      <li>Melhoria de desempenho</li>
+    </ul>
+    <p>A decisão de compra é baseada na <strong>confiança e nos resultados</strong> entregues.</p>
+
+    <hr>
+
+    <h3>6.2 Comportamento da Empresa</h3>
+    <p>A Pedroso busca maximizar resultados através de:</p>
+    <ul>
+      <li>Eficiência nos processos internos</li>
+      <li>Qualidade dos serviços prestados</li>
+      <li>Fidelização de clientes</li>
+    </ul>
+
+    <hr>
+
+    <h3>6.3 Tecnologia da Produção</h3>
+    <p>O uso de tecnologia aumenta a produtividade e a qualidade das entregas:</p>
+    <ul>
+      <li>Plataformas de recrutamento digital</li>
+      <li>Testes comportamentais e de perfil</li>
+      <li>Sistemas de gestão de candidatos (ATS)</li>
+    </ul>
+
+    <hr>
+
+    <h3>6.4 Análise da Concorrência</h3>
+    <table>
+      <thead>
+        <tr><th>Concorrentes</th><th>Diferencial da Pedroso</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Consultorias de RH</td>
+          <td rowspan="3">
+            <ul style="margin:0; padding-left:1.2rem;">
+              <li>Atendimento personalizado</li>
+              <li>Foco em competências</li>
+              <li>Proximidade com o cliente</li>
+            </ul>
+          </td>
+        </tr>
+        <tr><td>Plataformas digitais</td></tr>
+        <tr><td>Headhunters</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 7. CONTABILIDADE -->
+  <section id="contabilidade">
+    <h2>7. Contabilidade Empresarial</h2>
+
+    <h3>7.1 Importância da Contabilidade</h3>
+    <p>A contabilidade é essencial para a sustentabilidade da empresa, pois permite:</p>
+    <ul>
+      <li>Controle financeiro preciso</li>
+      <li>Planejamento estratégico embasado</li>
+      <li>Tomada de decisão com dados confiáveis</li>
+    </ul>
+
+    <hr>
+
+    <h3>7.2 Demonstrações Financeiras</h3>
+    <p>Principais relatórios utilizados:</p>
+    <div class="card-grid">
+      <div class="card">
+        <strong>Fluxo de Caixa</strong>
+        <p>Controle de entradas e saídas financeiras</p>
+      </div>
+      <div class="card">
+        <strong>DRE</strong>
+        <p>Demonstração do Resultado do Exercício</p>
+      </div>
+      <div class="card">
+        <strong>Controle de Custos</strong>
+        <p>Gestão dos custos operacionais por projeto</p>
+      </div>
+    </div>
+    <p style="margin-top:0.8rem;">Esses dados mostram a saúde financeira da empresa e orientam decisões estratégicas.</p>
+
+    <hr>
+
+    <h3>7.3 Acompanhamento Financeiro</h3>
+    <p>A empresa deve monitorar continuamente:</p>
+    <table>
+      <thead>
+        <tr><th>Indicador</th><th>Objetivo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Receita por cliente</td><td>Identificar os clientes mais rentáveis</td></tr>
+        <tr><td>Custos operacionais</td><td>Manter eficiência e reduzir desperdícios</td></tr>
+        <tr><td>Margem de lucro</td><td>Garantir crescimento sustentável</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-green">
+      <span class="callout-icon">📈</span>
+      <span>O monitoramento financeiro contínuo garante o <strong>crescimento sustentável</strong> da Pedroso.</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Pedroso Consultoria em Gestão de Pessoas &mdash; Todos os direitos reservados
+</footer>
+
 </body>
 </html>
