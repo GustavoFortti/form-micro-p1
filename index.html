@@ -3,517 +3,602 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pedroso Consultoria em RH</title>
+<title>Quiz de Administração</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --bg: #1a1a2e;
+    --surface: #16213e;
+    --accent: #e94560;
+    --text: #eaeaea;
+    --muted: #a0a0b0;
+    --radius: 12px;
+    --a: #e21b3c;
+    --b: #1368ce;
+    --c: #d89e00;
+    --d: #26890c;
+  }
+
   body {
-    background: #d0d0d0;
-    font-family: "Times New Roman", Times, serif;
-    font-size: 12pt;
-    color: #000;
-    line-height: 1.8;
-  }
-
-  .page {
-    background: #fff;
-    max-width: 820px;
-    margin: 2.5rem auto;
-    padding: 3.5cm 3cm 3.5cm 3cm;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-    min-height: 29.7cm;
-  }
-
-  /* CAPA */
-  .cover {
-    text-align: center;
-    padding-top: 4cm;
-    padding-bottom: 4cm;
-    border-bottom: 1px solid #000;
-    margin-bottom: 2rem;
-  }
-
-  .cover .institution {
-    font-size: 11pt;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 3cm;
-  }
-
-  .cover h1 {
-    font-size: 16pt;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-  }
-
-  .cover .subtitle {
-    font-size: 12pt;
-    margin-bottom: 3cm;
-  }
-
-  .cover .meta {
-    font-size: 11pt;
-    line-height: 2;
-  }
-
-  /* SUMÁRIO */
-  .toc h2 {
-    font-size: 13pt;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
-  }
-
-  .toc ol {
-    list-style: none;
-    padding: 0;
-  }
-
-  .toc li {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
-    border-bottom: 1px dotted #666;
-    padding: 2px 0;
-    font-size: 11pt;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
   }
 
-  .toc li.sub { padding-left: 1.5rem; }
-  .toc li.sub2 { padding-left: 3rem; }
-
-  /* CORPO */
-  .body-text { margin-top: 2rem; }
-
-  h2.section-title {
-    font-size: 13pt;
-    font-weight: bold;
-    text-transform: uppercase;
+  /* ── START SCREEN ── */
+  #screen-start {
     text-align: center;
-    letter-spacing: 1px;
-    margin-top: 2rem;
-    margin-bottom: 0.8rem;
+    max-width: 560px;
+    width: 100%;
   }
 
-  h3.sub-title {
-    font-size: 12pt;
-    font-weight: bold;
-    margin-top: 1.2rem;
+  #screen-start .logo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: var(--accent);
+    text-shadow: 0 0 32px rgba(233,69,96,0.45);
+    margin-bottom: 0.2rem;
+  }
+
+  #screen-start .tagline {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  #screen-start h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  #screen-start p {
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 24px rgba(233,69,96,0.35);
+    letter-spacing: 1px;
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(233,69,96,0.5); }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* ── QUIZ SCREEN ── */
+  #screen-quiz { display: none; width: 100%; max-width: 780px; }
+
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .progress-wrap {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50px;
+    height: 8px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 50px;
+    transition: width 0.4s ease;
+  }
+
+  .q-counter {
+    font-size: 0.85rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .score-display {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #ffd700;
+    white-space: nowrap;
+  }
+
+  /* Timer */
+  .timer-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .timer-ring {
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+
+  .timer-ring svg {
+    transform: rotate(-90deg);
+  }
+
+  .timer-ring circle {
+    fill: none;
+    stroke-width: 5;
+  }
+
+  .timer-track { stroke: rgba(255,255,255,0.12); }
+  .timer-fill {
+    stroke: var(--accent);
+    stroke-linecap: round;
+    stroke-dasharray: 163;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear, stroke 0.3s;
+  }
+
+  .timer-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+
+  /* Question card */
+  .question-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 1.8rem 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 1.4rem;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  /* Answer grid */
+  .answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  .answer-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.2rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: left;
+    transition: transform 0.12s, filter 0.12s;
+    min-height: 68px;
+    line-height: 1.35;
+  }
+
+  .answer-btn:hover:not(:disabled) { transform: scale(1.03); filter: brightness(1.1); }
+  .answer-btn:disabled { cursor: default; }
+
+  .answer-btn[data-letter="A"] { background: var(--a); }
+  .answer-btn[data-letter="B"] { background: var(--b); }
+  .answer-btn[data-letter="C"] { background: var(--c); color: #1a1a1a; }
+  .answer-btn[data-letter="D"] { background: var(--d); }
+
+  .answer-btn .letter-badge {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .answer-btn.correct { outline: 4px solid #fff; filter: brightness(1.15); animation: pulse-correct 0.4s ease; }
+  .answer-btn.wrong   { filter: brightness(0.45); }
+  .answer-btn.reveal  { outline: 4px solid #fff; filter: brightness(1.1); }
+
+  @keyframes pulse-correct {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.06); }
+    100% { transform: scale(1); }
+  }
+
+  /* Feedback bar */
+  .feedback {
+    margin-top: 1rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--radius);
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.05rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feedback.show { opacity: 1; }
+  .feedback.ok  { background: rgba(38,137,12,0.25); color: #6dff44; border: 1px solid rgba(38,137,12,0.5); }
+  .feedback.bad { background: rgba(226,27,60,0.2);  color: #ff6b80; border: 1px solid rgba(226,27,60,0.4); }
+
+  /* ── RESULTS SCREEN ── */
+  #screen-results {
+    display: none;
+    text-align: center;
+    max-width: 560px;
+    width: 100%;
+  }
+
+  .result-trophy { font-size: 5rem; margin-bottom: 0.5rem; }
+
+  #screen-results h2 {
+    font-size: 2rem;
+    font-weight: 900;
     margin-bottom: 0.4rem;
   }
 
-  h4.sub-sub-title {
-    font-size: 12pt;
-    font-weight: bold;
-    font-style: italic;
-    margin-top: 1rem;
-    margin-bottom: 0.3rem;
+  .result-score {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ffd700;
+    margin: 0.5rem 0;
+    text-shadow: 0 0 24px rgba(255,215,0,0.4);
   }
 
-  p {
-    text-align: justify;
-    margin-bottom: 0.6rem;
-    text-indent: 1.25cm;
-  }
+  .result-subtitle { color: var(--muted); margin-bottom: 1.5rem; }
 
-  p.no-indent { text-indent: 0; }
-
-  ul, ol {
-    padding-left: 2rem;
-    margin-bottom: 0.6rem;
-  }
-
-  li { margin-bottom: 0.15rem; }
-
-  .section-divider {
-    border: none;
-    border-top: 1px solid #000;
-    margin: 1.8rem 0 1.2rem;
-  }
-
-  /* ORGANOGRAMA */
-  .org {
+  .result-breakdown {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    margin: 1rem 0 1.2rem;
-    font-family: "Times New Roman", Times, serif;
+    justify-content: space-around;
+    gap: 1rem;
   }
 
-  .org-box {
-    border: 1px solid #000;
-    padding: 4px 20px;
-    font-size: 11pt;
-    text-align: center;
-    min-width: 160px;
-  }
+  .breakdown-item { display: flex; flex-direction: column; gap: 0.3rem; }
+  .breakdown-item .val { font-size: 1.8rem; font-weight: 900; }
+  .breakdown-item .lbl { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .breakdown-item .val.green { color: #6dff44; }
+  .breakdown-item .val.red   { color: #ff6b80; }
 
-  .org-line {
-    width: 1px;
-    height: 18px;
-    background: #000;
-  }
+  /* ── UTILS ── */
+  .hidden { display: none !important; }
 
-  .org-h-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 0;
-  }
-
-  .org-branch {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .org-h-bar {
-    height: 1px;
-    background: #000;
-    width: 100px;
-    margin-top: 18px;
-  }
-
-  /* TABELA */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 11pt;
-    margin: 0.8rem 0;
-  }
-
-  th {
-    border: 1px solid #000;
-    padding: 5px 8px;
-    font-weight: bold;
-    text-align: center;
-    background: #f0f0f0;
-  }
-
-  td {
-    border: 1px solid #000;
-    padding: 5px 8px;
-    vertical-align: top;
-  }
-
-  .figure-caption {
-    text-align: center;
-    font-size: 10pt;
-    margin-top: 0.3rem;
-    margin-bottom: 0.8rem;
-    font-style: italic;
-  }
-
-  @media print {
-    body { background: none; }
-    .page { box-shadow: none; margin: 0; }
-  }
-
-  @media (max-width: 680px) {
-    .page { padding: 2rem 1.2rem; margin: 0; min-height: auto; }
+  @media (max-width: 520px) {
+    .answers { grid-template-columns: 1fr; }
+    .question-card { font-size: 1rem; padding: 1.2rem; }
+    #screen-start .logo { font-size: 2.8rem; }
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- CAPA -->
-  <div class="cover">
-    <div class="institution">Pedroso Consultoria em Gestão de Pessoas</div>
-    <h1>Análise Organizacional e Estratégica</h1>
-    <div class="subtitle">Trabalho Acadêmico — Administração</div>
-    <div class="meta">
-      Área: Recursos Humanos e Gestão de Pessoas<br>
-      Ano: 2026
-    </div>
-  </div>
-
-  <!-- SUMÁRIO -->
-  <div class="toc">
-    <h2>Sumário</h2>
-    <ol>
-      <li><span>1. Introdução</span><span>1</span></li>
-      <li class="sub"><span>2. Abordagem de Taylor e Fayol</span><span>1</span></li>
-      <li class="sub2"><span>2.1 Características de Taylor</span><span>1</span></li>
-      <li class="sub2"><span>2.2 Características de Fayol</span><span>1</span></li>
-      <li class="sub2"><span>2.3 Conclusão</span><span>2</span></li>
-      <li class="sub"><span>3. Agenda Pautada</span><span>2</span></li>
-      <li class="sub2"><span>3.1 Organograma</span><span>2</span></li>
-      <li class="sub2"><span>3.2 Visão, Missão e Valores</span><span>2</span></li>
-      <li class="sub2"><span>3.3 Funções Gerenciais</span><span>2</span></li>
-      <li class="sub2"><span>3.4 Sistema de Informação e Processo Decisório</span><span>3</span></li>
-      <li class="sub2"><span>3.5 Áreas da Empresa</span><span>3</span></li>
-      <li class="sub"><span>4. Ambiente de Negócios Internacionais</span><span>3</span></li>
-      <li class="sub"><span>5. Microeconomia</span><span>4</span></li>
-      <li class="sub"><span>6. Contabilidade Empresarial</span><span>4</span></li>
-    </ol>
-  </div>
-
-  <hr class="section-divider">
-
-  <!-- CORPO -->
-  <div class="body-text">
-
-    <!-- 1. INTRODUÇÃO -->
-    <h2 class="section-title">1.0 Introdução</h2>
-
-    <p>
-      O presente trabalho tem como objetivo analisar a aplicação dos conceitos administrativos
-      na empresa Pedroso Consultoria em Gestão de Pessoas, com foco na identificação de melhorias
-      e estratégias para o crescimento organizacional.
-    </p>
-    <p>
-      A problemática central está relacionada à forma como a organização estrutural, os processos
-      internos e a definição de critérios estratégicos impactam diretamente no desempenho e na
-      expansão da empresa. Assim, busca-se compreender como a gestão eficiente pode contribuir
-      para resultados sustentáveis.
-    </p>
-    <p>
-      A empresa Pedroso atua no segmento de consultoria em recursos humanos, com foco em
-      recrutamento, seleção, treinamento e desenvolvimento de pessoas, sendo o capital humano
-      seu principal ativo.
-    </p>
-
-    <hr class="section-divider">
-
-    <!-- 2. TAYLOR E FAYOL -->
-    <h2 class="section-title">2.0 Abordagem de Taylor e Fayol Aplicada à Pedroso</h2>
-
-    <h3 class="sub-title">2.0.1 Características de Taylor</h3>
-    <p>
-      A teoria de Taylor, voltada para a eficiência produtiva, pode ser aplicada na Pedroso por
-      meio da padronização de processos de recrutamento e seleção, como:
-    </p>
-    <ul>
-      <li>Definição de etapas claras (triagem, entrevistas, testes);</li>
-      <li>Padronização de avaliações de candidatos;</li>
-      <li>Controle de tempo em processos seletivos.</li>
-    </ul>
-    <p>Isso contribui para maior produtividade e qualidade na entrega dos serviços.</p>
-
-    <h3 class="sub-title">2.0.2 Características de Fayol</h3>
-    <p>
-      A teoria de Fayol é altamente aplicável à Pedroso, pois a empresa depende de uma gestão
-      estruturada. As funções administrativas aparecem claramente:
-    </p>
-    <ul>
-      <li>Planejamento de projetos de RH;</li>
-      <li>Organização das demandas de clientes;</li>
-      <li>Direção das equipes e consultores;</li>
-      <li>Controle dos resultados e desempenho.</li>
-    </ul>
-
-    <h3 class="sub-title">2.0.3 Conclusão</h3>
-    <p>
-      Embora Taylor contribua para a padronização dos processos, a abordagem de Fayol é mais
-      adequada, pois a empresa atua com serviços estratégicos e personalizados, exigindo maior
-      foco na gestão como um todo.
-    </p>
-
-    <hr class="section-divider">
-
-    <!-- 3. AGENDA PAUTADA -->
-    <h2 class="section-title">3.0 Agenda Pautada</h2>
-
-    <h3 class="sub-title">3.0.1 Evolução do Pensamento Organizacional</h3>
-    <p>
-      A Pedroso demonstra uma evolução administrativa ao aplicar conceitos modernos de gestão
-      de pessoas, priorizando competências, desenvolvimento humano e estratégia organizacional.
-    </p>
-
-    <h4 class="sub-sub-title">3.0.1.1 Organograma</h4>
-    <p>
-      A estrutura organizacional tende a ser enxuta, com Direção, Consultores de RH e Área
-      Administrativa/Comercial. Isso permite flexibilidade e adaptação às demandas dos clientes.
-    </p>
-
-    <div class="org">
-      <div class="org-box"><strong>Direção</strong></div>
-      <div class="org-line"></div>
-      <div class="org-h-row">
-        <div class="org-branch">
-          <div style="height:1px;width:100px;background:#000;margin-top:0;"></div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <div style="height:18px;width:1px;background:#000;"></div>
-          <div style="display:flex;gap:60px;">
-            <div class="org-branch">
-              <div class="org-line" style="height:0;"></div>
-              <div class="org-box">Consultores de RH</div>
-            </div>
-            <div class="org-branch">
-              <div class="org-line" style="height:0;"></div>
-              <div class="org-box">Área Administrativa<br>/ Comercial</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p class="figure-caption no-indent">Figura 1 — Organograma da Pedroso Consultoria em RH</p>
-
-    <h4 class="sub-sub-title">3.0.1.2 Visão, Missão e Valores</h4>
-    <ul>
-      <li><strong>Missão:</strong> Promover gestão de pessoas de alta qualidade com foco em resultados;</li>
-      <li><strong>Visão:</strong> Ser referência em gestão de pessoas;</li>
-      <li><strong>Valores:</strong> Ética, responsabilidade, confiança e foco no cliente.</li>
-    </ul>
-    <p>Esses elementos guiam a estratégia e o posicionamento da empresa.</p>
-
-    <h4 class="sub-sub-title">3.0.1.3 Funções Gerenciais</h4>
-    <ul>
-      <li><strong>Planejar:</strong> definição de projetos de RH e estratégias para clientes;</li>
-      <li><strong>Organizar:</strong> estruturação dos processos seletivos e treinamentos;</li>
-      <li><strong>Dirigir:</strong> liderança dos consultores e atendimento aos clientes;</li>
-      <li><strong>Controlar:</strong> acompanhamento de resultados e indicadores.</li>
-    </ul>
-
-    <h4 class="sub-sub-title">3.0.1.4 Sistema de Informação e Processo Decisório</h4>
-    <p>
-      A empresa utiliza informações estratégicas dos clientes (perfil de cargos, desempenho,
-      cultura organizacional) para tomada de decisão. O processo decisório é baseado em:
-    </p>
-    <ul>
-      <li>Análise de dados de candidatos;</li>
-      <li>Feedback de clientes;</li>
-      <li>Indicadores de desempenho.</li>
-    </ul>
-
-    <h4 class="sub-sub-title">3.0.1.5 Áreas da Empresa</h4>
-
-    <p class="no-indent"><strong>Recursos Humanos</strong></p>
-    <p>É o core da empresa, atuando em recrutamento, seleção e desenvolvimento.</p>
-
-    <p class="no-indent"><strong>Marketing</strong></p>
-    <p>Utiliza redes sociais, networking e relacionamento com empresas.</p>
-
-    <p class="no-indent"><strong>Finanças</strong></p>
-    <p>Controle de receitas por projetos e custos operacionais.</p>
-
-    <p class="no-indent"><strong>Produção (Serviço)</strong></p>
-    <p>Entrega de soluções em RH (processos seletivos, treinamentos, consultorias).</p>
-
-    <hr class="section-divider">
-
-    <!-- 4. INTERNACIONAL -->
-    <h2 class="section-title">3.0.2 Ambiente de Negócios Internacionais</h2>
-
-    <p>
-      A atuação da Pedroso pode ser inserida no contexto global de gestão de pessoas, onde
-      empresas buscam cada vez mais profissionais qualificados e alinhados à cultura organizacional.
-    </p>
-    <p>
-      Com a globalização, o mercado de trabalho tornou-se mais competitivo e integrado, permitindo:
-    </p>
-    <ul>
-      <li>Recrutamento internacional;</li>
-      <li>Trabalho remoto e equipes globais;</li>
-      <li>Troca de conhecimento entre países.</li>
-    </ul>
-    <p>A empresa pode expandir seus serviços para:</p>
-    <ul>
-      <li>Seleção de profissionais para empresas multinacionais;</li>
-      <li>Treinamentos alinhados a padrões internacionais;</li>
-      <li>Consultoria em gestão intercultural.</li>
-    </ul>
-    <p>
-      Assim, o ambiente internacional representa uma oportunidade de crescimento e expansão.
-    </p>
-
-    <hr class="section-divider">
-
-    <!-- 5. MICROECONOMIA -->
-    <h2 class="section-title">3.0.3 Microeconomia</h2>
-
-    <h3 class="sub-title">3.0.3.1 Comportamento do Consumidor</h3>
-    <p>Os clientes (empresas) buscam:</p>
-    <ul>
-      <li>Redução de turnover;</li>
-      <li>Contratação eficiente;</li>
-      <li>Melhoria de desempenho.</li>
-    </ul>
-    <p>A decisão de compra é baseada na confiança e nos resultados.</p>
-
-    <h3 class="sub-title">3.0.3.2 Comportamento da Empresa</h3>
-    <p>A Pedroso busca maximizar lucro através de:</p>
-    <ul>
-      <li>Eficiência nos processos;</li>
-      <li>Qualidade dos serviços;</li>
-      <li>Fidelização de clientes.</li>
-    </ul>
-
-    <h3 class="sub-title">3.0.3.3 Tecnologia da Produção</h3>
-    <p>Uso de:</p>
-    <ul>
-      <li>Plataformas de recrutamento;</li>
-      <li>Testes comportamentais;</li>
-      <li>Sistemas de gestão de candidatos.</li>
-    </ul>
-    <p>Isso aumenta produtividade e qualidade.</p>
-
-    <h3 class="sub-title">3.0.3.4 Análise da Concorrência</h3>
-    <p>O mercado de RH é competitivo, com consultorias, plataformas digitais e headhunters.</p>
-    <p>Diferencial da Pedroso:</p>
-    <ul>
-      <li>Atendimento personalizado;</li>
-      <li>Foco em competências;</li>
-      <li>Proximidade com o cliente.</li>
-    </ul>
-
-    <hr class="section-divider">
-
-    <!-- 6. CONTABILIDADE -->
-    <h2 class="section-title">3.0.4 Contabilidade Empresarial</h2>
-
-    <h3 class="sub-title">3.0.4.1 Importância da Contabilidade</h3>
-    <p>Permite:</p>
-    <ul>
-      <li>Controle financeiro;</li>
-      <li>Planejamento estratégico;</li>
-      <li>Tomada de decisão.</li>
-    </ul>
-
-    <h3 class="sub-title">3.0.4.2 Demonstrações Financeiras</h3>
-    <p>Principais relatórios:</p>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Relatório</th>
-          <th>Finalidade</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Fluxo de Caixa</td>
-          <td>Controle de entradas e saídas financeiras</td>
-        </tr>
-        <tr>
-          <td>DRE</td>
-          <td>Demonstração do Resultado do Exercício</td>
-        </tr>
-        <tr>
-          <td>Controle de Custos</td>
-          <td>Gestão dos custos operacionais por projeto</td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="figure-caption no-indent">Quadro 1 — Principais demonstrações financeiras</p>
-
-    <p>Esses dados mostram a saúde financeira da empresa.</p>
-
-    <h3 class="sub-title">3.0.4.3 Acompanhamento Financeiro</h3>
-    <p>A empresa deve monitorar:</p>
-    <ul>
-      <li>Receita por cliente;</li>
-      <li>Custos operacionais;</li>
-      <li>Margem de lucro.</li>
-    </ul>
-    <p>Isso garante crescimento sustentável.</p>
-
-  </div>
+<!-- ════════════════ START ════════════════ -->
+<div id="screen-start">
+  <div class="logo">Karroot</div>
+  <div class="tagline">Quiz interativo de Administração</div>
+  <h2>Teorias da Administração</h2>
+  <p>
+    Taylor, Fayol, Mayo, Indústria 4.0 e muito mais.<br>
+    15 questões · 20 segundos por pergunta
+  </p>
+  <button class="btn-primary" onclick="startQuiz()">JOGAR</button>
 </div>
+
+<!-- ════════════════ QUIZ ════════════════ -->
+<div id="screen-quiz">
+  <div class="quiz-header">
+    <div class="q-counter" id="q-counter">1 / 15</div>
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+    </div>
+    <div class="score-display" id="score-display">0 pts</div>
+  </div>
+
+  <div class="timer-wrap">
+    <div class="timer-ring">
+      <svg width="64" height="64" viewBox="0 0 64 64">
+        <circle class="timer-track" cx="32" cy="32" r="26"/>
+        <circle class="timer-fill" id="timer-fill" cx="32" cy="32" r="26"/>
+      </svg>
+      <div class="timer-text" id="timer-text">20</div>
+    </div>
+  </div>
+
+  <div class="question-card" id="question-text">Carregando…</div>
+
+  <div class="answers" id="answers"></div>
+
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<!-- ════════════════ RESULTS ════════════════ -->
+<div id="screen-results">
+  <div class="result-trophy" id="result-trophy">🏆</div>
+  <h2 id="result-title">Resultado</h2>
+  <div class="result-score" id="result-score">0 pts</div>
+  <div class="result-subtitle" id="result-subtitle"></div>
+
+  <div class="result-breakdown">
+    <div class="breakdown-item">
+      <span class="val green" id="res-correct">0</span>
+      <span class="lbl">Corretas</span>
+    </div>
+    <div class="breakdown-item">
+      <span class="val red" id="res-wrong">0</span>
+      <span class="lbl">Erradas</span>
+    </div>
+    <div class="breakdown-item">
+      <span class="val" id="res-pct" style="color:#ffd700">0%</span>
+      <span class="lbl">Acertos</span>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="restartQuiz()">JOGAR NOVAMENTE</button>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "O dono de uma pizzaria percebeu que os pizzaiolos fazem a mesma pizza de 4 jeitos diferentes. Taylor sugeriria:",
+    options: ["Cada um continuar do seu jeito","Padronizar o processo mais eficiente","Trocar todos os funcionários","Diminuir o cardápio"],
+    answer: 1
+  },
+  {
+    q: "Em uma empresa onde ninguém sabe quem manda em quem, Fayol provavelmente reclamaria da falta de:",
+    options: ["Criatividade","Hierarquia","Tecnologia","Marketing"],
+    answer: 1
+  },
+  {
+    q: "Uma fábrica aumentou salários, mas os funcionários continuam desmotivados. Mayo diria que falta:",
+    options: ["Mais máquinas","Relações humanas saudáveis","Menos pausas","Controle rígido"],
+    answer: 1
+  },
+  {
+    q: "Se Taylor abrisse uma academia, qual placa estaria na parede?",
+    options: ['"Treine como quiser"','"Cada exercício tem um método ideal"','"Importante é se divertir"','"Sem regras"'],
+    answer: 1
+  },
+  {
+    q: "Qual situação mais combina com Indústria 4.0?",
+    options: ["Operador anotando tudo em papel","Máquinas trocando dados automaticamente","Produção totalmente artesanal","Controle sem internet"],
+    answer: 1
+  },
+  {
+    q: "Uma startup tem funcionários talentosos, mas totalmente desorganizados. Fayol ajudaria mais em:",
+    options: ["Estrutura e coordenação","Terapia em grupo","Criação de robôs","Campanhas de vendas"],
+    answer: 0
+  },
+  {
+    q: "Durante um teste, os funcionários começaram a produzir mais apenas porque perceberam que estavam sendo observados. Isso lembra:",
+    options: ["Fordismo","Experiência de Hawthorne","Revolução Industrial","Toyotismo"],
+    answer: 1
+  },
+  {
+    q: 'Um gerente diz: "Não importa como você se sente, só quero bater meta." Essa visão é mais próxima de:',
+    options: ["Mayo","RH moderno","Taylorismo extremo","Indústria 5.0"],
+    answer: 2
+  },
+  {
+    q: "Em uma empresa da Indústria 5.0, espera-se que os funcionários:",
+    options: ["Compitam com robôs","Trabalhem junto com tecnologias inteligentes","Façam tudo manualmente","Ignorem inovação"],
+    answer: 1
+  },
+  {
+    q: "Se Fayol jogasse The Sims, ele provavelmente passaria mais tempo:",
+    options: ["Decorando casas","Organizando tarefas e funções","Fazendo festas","Ignorando regras do jogo"],
+    answer: 1
+  },
+  {
+    q: "O principal problema do modelo de Taylor era:",
+    options: ["Pouca eficiência","Excesso de foco humano","Transformar pessoas em peças do sistema","Falta de produtividade"],
+    answer: 2
+  },
+  {
+    q: "Qual cenário MAIS irritaria Elton Mayo?",
+    options: ["Funcionários motivados","Equipe integrada","Ambiente tóxico e sem diálogo","Liderança próxima da equipe"],
+    answer: 2
+  },
+  {
+    q: "Uma fábrica usa IA para prever falhas nas máquinas antes que elas aconteçam. Isso é exemplo de:",
+    options: ["Produção artesanal","Administração Clássica","Automação inteligente","Revolução Agrícola"],
+    answer: 2
+  },
+  {
+    q: "Qual frase Fayol provavelmente aprovaria?",
+    options: ['"Sem planejamento a empresa se perde."','"Hierarquia atrapalha tudo."','"Cada setor decide sozinho."','"Organização não importa."'],
+    answer: 0
+  },
+  {
+    q: "Se uma empresa investe em IA, mas também em criatividade, bem-estar e colaboração humana, ela está mais próxima da:",
+    options: ["Administração Científica","Indústria 5.0","1ª Revolução Industrial","Produção artesanal"],
+    answer: 1
+  }
+];
+
+const LETTERS = ["A","B","C","D"];
+const TIME_PER_Q = 20;
+const CIRCUMFERENCE = 2 * Math.PI * 26; // ~163.36
+
+let currentQ = 0;
+let score = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let timerInterval = null;
+let timeLeft = TIME_PER_Q;
+let answered = false;
+
+function startQuiz() {
+  currentQ = 0; score = 0; correctCount = 0; wrongCount = 0;
+  document.getElementById("screen-start").style.display = "none";
+  document.getElementById("screen-results").style.display = "none";
+  document.getElementById("screen-quiz").style.display = "block";
+  loadQuestion();
+}
+
+function loadQuestion() {
+  answered = false;
+  timeLeft = TIME_PER_Q;
+
+  const data = QUESTIONS[currentQ];
+  const total = QUESTIONS.length;
+
+  document.getElementById("q-counter").textContent = `${currentQ + 1} / ${total}`;
+  document.getElementById("progress-bar").style.width = `${(currentQ / total) * 100}%`;
+  document.getElementById("score-display").textContent = `${score} pts`;
+  document.getElementById("question-text").textContent = data.q;
+
+  const feedback = document.getElementById("feedback");
+  feedback.className = "feedback";
+  feedback.textContent = "";
+
+  const answersEl = document.getElementById("answers");
+  answersEl.innerHTML = "";
+  data.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "answer-btn";
+    btn.dataset.letter = LETTERS[i];
+    btn.dataset.index = i;
+    btn.innerHTML = `<span class="letter-badge">${LETTERS[i]}</span><span>${opt}</span>`;
+    btn.addEventListener("click", () => selectAnswer(i));
+    answersEl.appendChild(btn);
+  });
+
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  updateTimerUI(TIME_PER_Q);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerUI(timeLeft);
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      if (!answered) timeUp();
+    }
+  }, 1000);
+}
+
+function updateTimerUI(t) {
+  const fill = document.getElementById("timer-fill");
+  const text = document.getElementById("timer-text");
+  const pct = t / TIME_PER_Q;
+  fill.style.strokeDashoffset = CIRCUMFERENCE * (1 - pct);
+  fill.style.stroke = t <= 5 ? "#e94560" : t <= 10 ? "#d89e00" : "#1368ce";
+  text.textContent = t;
+}
+
+function selectAnswer(index) {
+  if (answered) return;
+  answered = true;
+  clearInterval(timerInterval);
+
+  const correct = QUESTIONS[currentQ].answer;
+  const buttons = document.querySelectorAll(".answer-btn");
+  const feedback = document.getElementById("feedback");
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+    const i = parseInt(btn.dataset.index);
+    if (i === correct) btn.classList.add("correct");
+    else if (i === index && i !== correct) btn.classList.add("wrong");
+  });
+
+  if (index === correct) {
+    const points = Math.max(100, Math.round(500 * (timeLeft / TIME_PER_Q)));
+    score += points;
+    correctCount++;
+    feedback.textContent = `✓ Correto! +${points} pts`;
+    feedback.className = "feedback ok show";
+  } else {
+    wrongCount++;
+    feedback.textContent = `✗ Incorreto! A resposta certa era ${LETTERS[correct]}.`;
+    feedback.className = "feedback bad show";
+  }
+
+  setTimeout(nextQuestion, 1800);
+}
+
+function timeUp() {
+  answered = true;
+  const correct = QUESTIONS[currentQ].answer;
+  const buttons = document.querySelectorAll(".answer-btn");
+  const feedback = document.getElementById("feedback");
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+    if (parseInt(btn.dataset.index) === correct) btn.classList.add("reveal");
+  });
+
+  wrongCount++;
+  feedback.textContent = `⏱ Tempo esgotado! A resposta era ${LETTERS[correct]}.`;
+  feedback.className = "feedback bad show";
+  setTimeout(nextQuestion, 1800);
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= QUESTIONS.length) showResults();
+  else loadQuestion();
+}
+
+function showResults() {
+  document.getElementById("screen-quiz").style.display = "none";
+  const screen = document.getElementById("screen-results");
+  screen.style.display = "block";
+
+  const pct = Math.round((correctCount / QUESTIONS.length) * 100);
+
+  let trophy = "🥉"; let title = "Continue estudando!";
+  if (pct >= 90) { trophy = "🏆"; title = "Excelente! Mestre da Administração!"; }
+  else if (pct >= 70) { trophy = "🥇"; title = "Muito bom! Quase perfeito!"; }
+  else if (pct >= 50) { trophy = "🥈"; title = "Bom trabalho! Revise mais um pouco."; }
+
+  document.getElementById("result-trophy").textContent = trophy;
+  document.getElementById("result-title").textContent = title;
+  document.getElementById("result-score").textContent = `${score} pts`;
+  document.getElementById("result-subtitle").textContent = `Você acertou ${correctCount} de ${QUESTIONS.length} questões`;
+  document.getElementById("res-correct").textContent = correctCount;
+  document.getElementById("res-wrong").textContent = wrongCount;
+  document.getElementById("res-pct").textContent = `${pct}%`;
+  document.getElementById("progress-bar").style.width = "100%";
+}
+
+function restartQuiz() {
+  document.getElementById("screen-results").style.display = "none";
+  document.getElementById("screen-start").style.display = "block";
+}
+</script>
 </body>
 </html>
